@@ -41,15 +41,11 @@ class App extends React.Component {
   dealWithDelete = (taskId) => {
     fetch(`http://localhost:3000/taskList/${taskId}`, {
       method: "DELETE",
-    }).then(
-      fetch("http://localhost:3000/taskList")
-        .then((resp) => resp.json())
-        .then((json) => {
-          this.setState({
-            tasks: json,
-          });
-        })
-    );
+    });
+    const updatedTodos = this.state.tasks.filter((task) => task.id !== taskId);
+    this.setState({
+      tasks: updatedTodos,
+    });
   };
 
   render() {
