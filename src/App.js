@@ -1,26 +1,67 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ToDosContainer from './ToDosContainer'
+import NewTaskForm from './NewTaskForm'
 
-function App() {
+class App extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      tasks: []
+    }
+  }
+
+  componentDidMount(){
+    fetch('http://localhost:3000/taskList')
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({
+        tasks: json
+      })
+    })
+  }
+
+  dealWithForm = (event) => {
+    event.preventDefault()
+    fetch('http://localhost:3000/taskList', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ task: event.target.task.value })
+    })
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState(prevState => ({
+        tasks: [...prevState.tasks, json]
+      }))
+    })
+  }
+
+  dealWithDelete = (taskId) => {
+    fetch(`http://localhost:3000/taskList/${taskId}`, {method: 'DELETE'})
+    .then(fetch('http://localhost:3000/taskList')
+    .then(resp => resp.json())
+    .then(json => {
+      this.setState({
+        tasks: json
+      })
+    })
+    )
+  }
+
+  render(){
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Your Tasks:</h1>
+        < NewTaskForm dealWithForm={this.dealWithForm}/>
+        < ToDosContainer tasks={this.state.tasks} delete={this.dealWithDelete}/>
       </header>
     </div>
-  );
+    );
+  }
 }
 
 export default App;
