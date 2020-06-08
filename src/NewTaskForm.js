@@ -1,41 +1,36 @@
-import React from 'react';
+import React from "react";
 
 class NewTaskForm extends React.Component {
-
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.state = {
-      taskInput: ""
-    }
+      taskInput: "",
+    };
   }
 
   dealWithChange = (event) => {
     this.setState({
-      taskInput: event.target.value
-    })
-  }
+      taskInput: event.target.value,
+    });
+  };
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="create-new-task">
         <h3>Create New Task</h3>
         <form onSubmit={(event) => this.props.dealWithForm(event)}>
-          <input 
+          <input
             id="task"
             name="task"
             onChange={this.dealWithChange}
             value={this.state.taskInput}
             type="text"
-          >
-          </input>
-          <input
-            type="submit"
-          >
-          </input>
+          ></input>
+          <input type="submit"></input>
         </form>
       </div>
-    )
+    );
   }
 }
 
-export default NewTaskForm
+export default NewTaskForm;
