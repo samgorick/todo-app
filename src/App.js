@@ -1,8 +1,9 @@
 import React from "react";
-import "./App.css";
 import ToDosContainer from "./ToDosContainer";
 import NewTaskForm from "./NewTaskForm";
 import EditTaskForm from "./EditTaskForm";
+import SortableContainer from './SortableContainer'
+import { ReactSortable } from "react-sortablejs";
 
 class App extends React.Component {
   constructor() {
@@ -77,6 +78,12 @@ class App extends React.Component {
       });
   };
 
+  handleComponent = (newState) => {
+    this.setState({
+      tasks: newState
+    })
+  }
+
   render() {
     return (
       <div className='App ui center aligned container'>
@@ -92,11 +99,12 @@ class App extends React.Component {
               handleEdit={this.handleEdit}
             />
           ) : null}
-          <ToDosContainer
-            tasks={this.state.tasks}
-            delete={this.dealWithDelete}
-            edit={this.dealWithEdit}
-          />
+            <ToDosContainer
+              tasks={this.state.tasks}
+              delete={this.dealWithDelete}
+              edit={this.dealWithEdit}
+            />
+          <SortableContainer tasks={this.state.tasks} handleComponent={this.handleComponent}/>
         </header>
       </div>
     );

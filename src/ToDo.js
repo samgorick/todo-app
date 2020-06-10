@@ -1,9 +1,31 @@
 import React from "react";
 
 class ToDo extends React.Component {
+
+  handleDrag = () => {
+    console.log("on drag event")
+  }
+
+  dragStart = () => {
+    console.log("drag start")
+  }
+
+  dragOver = () => {
+    console.log("drag over")
+  }
+
+  dragEnd = () => {
+    console.log("drag end")
+  }
+
   render() {
     return (
-      <div className='ui card'>
+      <div className='ui card' draggable="true"
+        onDrag={this.handleDrag}
+        onDragStart={this.dragStart}
+        onDragOver={this.dragOver}
+        onDragEnd={this.dragEnd}
+      >
         <div className='content'>
           <div className='header'>
             <p>{this.props.task}</p>
