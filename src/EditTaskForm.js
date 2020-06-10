@@ -1,11 +1,19 @@
 import React from "react";
 
-class NewTaskForm extends React.Component {
+class EditTaskForm extends React.Component {
   constructor() {
     super();
     this.state = {
+      id: null,
       task: "",
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      id: this.props.edit.id,
+      task: this.props.edit.task,
+    });
   }
 
   dealWithChange = (event) => {
@@ -16,7 +24,7 @@ class NewTaskForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.dealWithForm(this.state.task);
+    this.props.handleEdit(this.state);
     this.setState({
       task: "",
     });
@@ -24,20 +32,19 @@ class NewTaskForm extends React.Component {
 
   render() {
     return (
-      <div className="new-task-form margin">
-        <h3 className="ui center aligned header">Create New Task</h3>
+      <div className="edit-task-form margin">
+        <h3 className="ui center aligned header">Edit Task</h3>
         <form className="ui form" onSubmit={this.handleSubmit}>
           <input
             className="six wide field"
             id="task"
             name="task"
-            placeholder="Enter task..."
             onChange={this.dealWithChange}
             value={this.state.task}
             type="text"
           ></input>
           <button type="submit" className="ui button">
-            Create Task
+            Edit Task
           </button>
         </form>
       </div>
@@ -45,4 +52,4 @@ class NewTaskForm extends React.Component {
   }
 }
 
-export default NewTaskForm;
+export default EditTaskForm;
