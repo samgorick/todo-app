@@ -2,10 +2,11 @@ import React from "react";
 import ToDo from "./ToDo";
 
 class ToDosContainer extends React.Component {
+
   render() {
     return (
-      <div className="ui centered cards">
-        {this.props.tasks.map((task) => (
+      <div className='ui centered cards'>
+        {this.props.tasks.map(task => (
           <ToDo
             key={task.id}
             id={task.id}

@@ -13,12 +13,24 @@
       "id": 21
     },
     {
-      "task": "Wash the Dog",
-      "id": 22
+      "task": "Add in draggable functionality",
+      "id": 24
     },
     {
-      "task": "Make a cup of tea",
-      "id": 23
+      "task": "Add in Ruby on Rails back-end",
+      "id": 25
+    },
+    {
+      "task": "Add in stats",
+      "id": 26
+    },
+    {
+      "task": "Add in categorisation",
+      "id": 27
+    },
+    {
+      "task": "Add in sizing / complexity",
+      "id": 28
     }
   ]
 }

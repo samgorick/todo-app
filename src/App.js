@@ -10,78 +10,78 @@ class App extends React.Component {
     this.state = {
       tasks: [],
       edit: false,
-      editTask: {},
+      editTask: {}
     };
   }
 
   componentDidMount() {
     fetch("http://localhost:3000/taskList")
-      .then((resp) => resp.json())
-      .then((json) => {
+      .then(resp => resp.json())
+      .then(json => {
         this.setState({
-          tasks: json,
+          tasks: json
         });
       });
   }
 
-  dealWithForm = (task) => {
+  dealWithForm = task => {
     fetch("http://localhost:3000/taskList", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "content-type": "application/json"
       },
-      body: JSON.stringify({ task: task }),
+      body: JSON.stringify({ task: task })
     })
-      .then((resp) => resp.json())
-      .then((json) => {
-        this.setState((prevState) => ({
-          tasks: [json, ...prevState.tasks],
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState(prevState => ({
+          tasks: [json, ...prevState.tasks]
         }));
       });
   };
 
-  dealWithDelete = (taskId) => {
+  dealWithDelete = taskId => {
     fetch(`http://localhost:3000/taskList/${taskId}`, {
-      method: "DELETE",
+      method: "DELETE"
     });
-    const updatedTodos = this.state.tasks.filter((task) => task.id !== taskId);
+    const updatedTodos = this.state.tasks.filter(task => task.id !== taskId);
     this.setState({
-      tasks: updatedTodos,
+      tasks: updatedTodos
     });
   };
 
-  dealWithEdit = (task) => {
+  dealWithEdit = task => {
     this.setState({
       edit: true,
-      editTask: task,
+      editTask: task
     });
   };
 
-  handleEdit = (edit) => {
+  handleEdit = edit => {
     fetch(`http://localhost:3000/taskList/${edit.id}`, {
       method: "PATCH",
       headers: {
-        "content-type": "application/json",
+        "content-type": "application/json"
       },
-      body: JSON.stringify({ task: edit.task }),
+      body: JSON.stringify({ task: edit.task })
     })
-      .then((resp) => resp.json())
-      .then((json) => {
-        const updatedTasks = this.state.tasks.map((task) =>
+      .then(resp => resp.json())
+      .then(json => {
+        const updatedTasks = this.state.tasks.map(task =>
           task.id === json.id ? json : task
         );
         this.setState({
           tasks: updatedTasks,
-          edit: false,
+          edit: false
         });
       });
   };
 
   render() {
     return (
-      <div className="App ui center aligned container">
-        <header className="App-header margin">
-          <h1 className="ui center aligned header">Your Tasks:</h1>
+      <div className='App ui center aligned container'>
+        <header className='App-header margin'>
+          <h1 className='ui center aligned header'>Your Tasks:</h1>
           <NewTaskForm
             dealWithForm={this.dealWithForm}
             editTask={this.state.editTask}
