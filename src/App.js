@@ -2,8 +2,6 @@ import React from "react";
 import ToDosContainer from "./ToDosContainer";
 import NewTaskForm from "./NewTaskForm";
 import EditTaskForm from "./EditTaskForm";
-import SortableContainer from './SortableContainer'
-import { ReactSortable } from "react-sortablejs";
 
 class App extends React.Component {
   constructor() {
@@ -101,10 +99,10 @@ class App extends React.Component {
           ) : null}
             <ToDosContainer
               tasks={this.state.tasks}
+              handleComponent={this.handleComponent}
               delete={this.dealWithDelete}
               edit={this.dealWithEdit}
             />
-          <SortableContainer tasks={this.state.tasks} handleComponent={this.handleComponent}/>
         </header>
       </div>
     );
